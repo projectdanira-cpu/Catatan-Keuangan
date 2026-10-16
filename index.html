@@ -17,7 +17,7 @@
 }
 
 body{
-    font-family:Arial,sans-serif;
+    font-family: Arial, sans-serif;
     background:#f0fdf4;
     padding:15px;
 }
@@ -25,7 +25,7 @@ body{
 .card{
     max-width:500px;
     margin:auto;
-    background:white;
+    background:#fff;
     padding:20px;
     border-radius:16px;
     box-shadow:0 4px 12px rgba(0,0,0,0.1);
@@ -34,12 +34,47 @@ body{
 h1{
     text-align:center;
     color:#16a34a;
+    margin-bottom:10px;
 }
 
 .subtitle{
     text-align:center;
-    margin:10px 0 20px;
     color:#666;
+    margin-bottom:20px;
+}
+
+.dashboard{
+    margin-bottom:20px;
+}
+
+.box{
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:10px;
+    text-align:center;
+    color:white;
+}
+
+.box h3{
+    margin-bottom:5px;
+}
+
+.box p{
+    color:white;
+    font-size:22px;
+    font-weight:bold;
+}
+
+.saldo{
+    background:#16a34a;
+}
+
+.masuk{
+    background:#2563eb;
+}
+
+.keluar{
+    background:#dc2626;
 }
 
 label{
@@ -71,6 +106,10 @@ button{
     cursor:pointer;
 }
 
+button:hover{
+    background:#15803d;
+}
+
 button:disabled{
     background:#999;
 }
@@ -93,6 +132,25 @@ button:disabled{
 Catat pemasukan dan pengeluaran harian
 </p>
 
+<div class="dashboard">
+
+<div class="box saldo">
+<h3>💰 Saldo</h3>
+<p id="saldo">Rp 0</p>
+</div>
+
+<div class="box masuk">
+<h3>📈 Total Pemasukan</h3>
+<p id="totalMasuk">Rp 0</p>
+</div>
+
+<div class="box keluar">
+<h3>📉 Total Pengeluaran</h3>
+<p id="totalKeluar">Rp 0</p>
+</div>
+
+</div>
+
 <form id="formKeuangan">
 
 <label>Tanggal</label>
@@ -105,10 +163,17 @@ Catat pemasukan dan pengeluaran harian
 </select>
 
 <label>Kategori</label>
-<input type="text" id="kategori">
+<select id="kategori">
+<option value="Tagihan Rumah">Tagihan Rumah</option>
+<option value="Kebutuhan Harian dan Bulanan">Kebutuhan H&B</option>
+<option value="Cicilan Rumah Kiramland">Rumah Kiramland</option>
+<option value="Keperluan Pribadi">K Pribadi</option>
+<option value="Kesehatan/Medical">Medical</option>
+<option value="Keperluan Bayi">Baby Shop</option>
+</select>
 
 <label>Deskripsi</label>
-<input type="text" id="deskripsi">
+<input type="text" id="deskripsi" placeholder="Keterangan transaksi">
 
 <label>Nominal (Rp)</label>
 <input type="number" id="nominal" required>
@@ -126,7 +191,22 @@ Simpan Transaksi
 <script>
 
 const API_URL =
-"link_dari_spread";
+"https://script.google.com/macros/s/AKfycbwQY2lV0EpSWmvjAtIX3FBpRjLDuqwHer6meXg_0pLyo_SJIt4aOXC1sIT80uMvG23X/exec";
+
+let totalMasuk = 0;
+let totalKeluar = 0;
+
+function updateDashboard(){
+
+    document.getElementById("totalMasuk").innerHTML =
+    "Rp " + totalMasuk.toLocaleString("id-ID");
+
+    document.getElementById("totalKeluar").innerHTML =
+    "Rp " + totalKeluar.toLocaleString("id-ID");
+
+    document.getElementById("saldo").innerHTML =
+    "Rp " + (totalMasuk - totalKeluar).toLocaleString("id-ID");
+}
 
 document.getElementById("tanggal").value =
 new Date().toISOString().split("T")[0];
@@ -134,58 +214,67 @@ new Date().toISOString().split("T")[0];
 document.getElementById("formKeuangan")
 .addEventListener("submit", async (e) => {
 
-e.preventDefault();
+    e.preventDefault();
 
-const btn = document.getElementById("btnSimpan");
-const status = document.getElementById("status");
+    const btn = document.getElementById("btnSimpan");
+    const status = document.getElementById("status");
 
-btn.disabled = true;
-btn.textContent = "Mengirim...";
+    btn.disabled = true;
+    btn.textContent = "Mengirim...";
 
-const data = {
-tanggal: document.getElementById("tanggal").value,
-jenis: document.getElementById("jenis").value,
-kategori: document.getElementById("kategori").value,
-deskripsi: document.getElementById("deskripsi").value,
-nominal: document.getElementById("nominal").value
-};
+    const data = {
+        tanggal: document.getElementById("tanggal").value,
+        jenis: document.getElementById("jenis").value,
+        kategori: document.getElementById("kategori").value,
+        deskripsi: document.getElementById("deskripsi").value,
+        nominal: document.getElementById("nominal").value
+    };
 
-try{
+    try{
 
-await fetch(API_URL,{
-method:"POST",
-mode:"no-cors",
-headers:{
-"Content-Type":"text/plain"
-},
-body: JSON.stringify(data)
-});
+        await fetch(API_URL,{
+            method:"POST",
+            mode:"no-cors",
+            headers:{
+                "Content-Type":"text/plain"
+            },
+            body: JSON.stringify(data)
+        });
 
-status.innerHTML =
-"✅ Data berhasil dikirim. Silakan cek Google Spreadsheet.";
+        const nominal = Number(data.nominal);
 
-document.getElementById("kategori").value = "";
-document.getElementById("deskripsi").value = "";
-document.getElementById("nominal").value = "";
+        if(data.jenis === "Masuk"){
+            totalMasuk += nominal;
+        }else{
+            totalKeluar += nominal;
+        }
 
-}catch(error){
+        updateDashboard();
 
-console.error(error);
+        status.innerHTML =
+        "✅ Data berhasil dikirim. Silakan cek Google Spreadsheet.";
 
-status.innerHTML =
-"❌ Gagal mengirim data";
+        document.getElementById("deskripsi").value = "";
+        document.getElementById("nominal").value = "";
 
-}
+    }catch(error){
 
-btn.disabled = false;
-btn.textContent = "Simpan Transaksi";
+        console.error(error);
+
+        status.innerHTML =
+        "❌ Gagal mengirim data";
+
+    }
+
+    btn.disabled = false;
+    btn.textContent = "Simpan Transaksi";
 
 });
 
 if("serviceWorker" in navigator){
-window.addEventListener("load", () => {
-navigator.serviceWorker.register("./sw.js");
-});
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js");
+    });
 }
 
 </script>
