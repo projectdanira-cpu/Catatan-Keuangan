@@ -1,25 +1,39 @@
 {
+  "id": "/Catatan-Keuangan/",
   "name": "Keuangan Pribadi",
   "short_name": "Keuangan",
   "description": "Aplikasi untuk mencatat dan memantau pemasukan serta pengeluaran keuangan pribadi.",
-  "start_url": "/Monitoring-Pribadi/",
-  "scope": "/Monitoring-Pribadi/",
+  "start_url": "/Catatan-Keuangan/",
+  "scope": "/Catatan-Keuangan/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#ffffff",
   "theme_color": "#16a34a",
+  "lang": "id-ID",
+  "categories": [
+    "finance",
+    "productivity"
+  ],
   "icons": [
     {
-      "src": "/Monitoring-Pribadi/icon-192.png",
+      "src": "/Catatan-Keuangan/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/Monitoring-Pribadi/icon-512.png",
+      "src": "/Catatan-Keuangan/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/Catatan-Keuangan/screenshot-mobile.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow"
     }
   ]
 }
