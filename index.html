@@ -11,102 +11,102 @@
 
 <style>
 *{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
 body{
-  font-family:Arial,sans-serif;
-  background:#f0fdf4;
-  padding:15px;
+    font-family:Arial,sans-serif;
+    background:#f0fdf4;
+    padding:15px;
 }
 
 .card{
-  max-width:600px;
-  margin:auto;
-  background:#fff;
-  padding:20px;
-  border-radius:16px;
-  box-shadow:0 4px 12px rgba(0,0,0,.1);
+    max-width:600px;
+    margin:auto;
+    background:#fff;
+    padding:20px;
+    border-radius:16px;
+    box-shadow:0 4px 12px rgba(0,0,0,.1);
 }
 
 h1{
-  text-align:center;
-  color:#16a34a;
-  margin-bottom:10px;
+    text-align:center;
+    color:#16a34a;
+    margin-bottom:10px;
 }
 
 .subtitle{
-  text-align:center;
-  color:#666;
-  margin-bottom:20px;
+    text-align:center;
+    color:#666;
+    margin-bottom:20px;
 }
 
 .dashboard{
-  display:grid;
-  gap:10px;
-  margin-bottom:20px;
+    display:grid;
+    gap:10px;
+    margin-bottom:20px;
 }
 
 .box{
-  padding:15px;
-  border-radius:12px;
-  color:#fff;
-  text-align:center;
+    padding:15px;
+    border-radius:12px;
+    text-align:center;
+    color:#fff;
 }
 
 .saldo{
-  background:#16a34a;
+    background:#16a34a;
 }
 
 .masuk{
-  background:#2563eb;
+    background:#2563eb;
 }
 
 .keluar{
-  background:#dc2626;
+    background:#dc2626;
 }
 
 .box p{
-  font-size:26px;
-  font-weight:bold;
+    font-size:26px;
+    font-weight:bold;
 }
 
 label{
-  display:block;
-  margin-top:10px;
-  margin-bottom:5px;
-  font-weight:bold;
+    display:block;
+    margin-top:12px;
+    margin-bottom:5px;
+    font-weight:bold;
 }
 
-input,select{
-  width:100%;
-  padding:12px;
-  border:1px solid #ccc;
-  border-radius:8px;
+input,
+select{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
 }
 
 button{
-  width:100%;
-  padding:14px;
-  margin-top:20px;
-  background:#16a34a;
-  color:white;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
-  font-size:16px;
+    width:100%;
+    padding:14px;
+    margin-top:20px;
+    border:none;
+    border-radius:8px;
+    background:#16a34a;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
 }
 
 #status{
-  margin-top:15px;
-  text-align:center;
-  font-weight:bold;
+    margin-top:15px;
+    text-align:center;
+    font-weight:bold;
 }
 </style>
 </head>
-
 <body>
 
 <div class="card">
@@ -141,20 +141,20 @@ Catat pemasukan dan pengeluaran harian
 <label>Tanggal</label>
 <input type="date" id="tanggal" required>
 
-<label>Jenis</label>
+<label>Jenis Transaksi</label>
 <select id="jenis">
-  <option value="Masuk">Pemasukan</option>
-  <option value="Keluar">Pengeluaran</option>
+<option value="Masuk">Pemasukan</option>
+<option value="Keluar">Pengeluaran</option>
 </select>
 
 <label>Kategori</label>
 <select id="kategori">
-  <option value="Tagihan Rumah">Tagihan Rumah</option>
-  <option value="Kebutuhan Harian dan Bulanan">Kebutuhan Harian</option>
-  <option value="Cicilan Rumah Kiramland">Rumah Kiramland</option>
-  <option value="Keperluan Pribadi">Keperluan Pribadi</option>
-  <option value="Kesehatan/Medical">Medical</option>
-  <option value="Keperluan Bayi">Baby Shop</option>
+<option value="Tagihan Rumah">Tagihan Rumah</option>
+<option value="Kebutuhan Harian dan Bulanan">Kebutuhan Harian</option>
+<option value="Cicilan Rumah Kiramland">Rumah Kiramland</option>
+<option value="Keperluan Pribadi">Keperluan Pribadi</option>
+<option value="Kesehatan/Medical">Medical</option>
+<option value="Keperluan Bayi">Baby Shop</option>
 </select>
 
 <label>Deskripsi</label>
@@ -163,7 +163,7 @@ Catat pemasukan dan pengeluaran harian
 <label>Nominal</label>
 <input type="number" id="nominal" required>
 
-<button type="submit">
+<button type="submit" id="btnSimpan">
 Simpan Transaksi
 </button>
 
@@ -175,64 +175,61 @@ Simpan Transaksi
 
 <script>
 
-// GANTI DENGAN URL DEPLOYMENT TERBARU
-const API_URL = "PASTE_URL_APPS_SCRIPT_TERBARU_DISINI";
+// GANTI DENGAN URL APPS SCRIPT TERBARU
+const API_URL = "URL_APPS_SCRIPT_TERBARU_ANDA";
 
-function rupiah(nilai){
-  return "Rp " + Number(nilai).toLocaleString("id-ID");
+function formatRupiah(nilai){
+    return "Rp " + Number(nilai).toLocaleString("id-ID");
 }
 
 async function loadDashboard(){
 
-  try{
+    try{
 
-    console.log("LOAD DASHBOARD");
+        console.log("Load Dashboard");
+        console.log("API:", API_URL);
 
-    const response = await fetch(API_URL);
+        const response = await fetch(API_URL);
 
-    console.log("STATUS:", response.status);
+        const data = await response.json();
 
-    const data = await response.json();
+        console.log("DATA:", data);
 
-    console.log("DATA:", data);
+        let totalMasuk = 0;
+        let totalKeluar = 0;
 
-    let masuk = 0;
-    let keluar = 0;
+        data.forEach(item => {
 
-    data.forEach(item => {
+            const nominal = Number(item.nominal) || 0;
 
-      const nominal = Number(item.nominal) || 0;
+            if(item.jenis === "Masuk"){
+                totalMasuk += nominal;
+            }
 
-      if(item.jenis === "Masuk"){
-        masuk += nominal;
-      }
+            if(item.jenis === "Keluar"){
+                totalKeluar += nominal;
+            }
 
-      if(item.jenis === "Keluar"){
-        keluar += nominal;
-      }
+        });
 
-    });
+        document.getElementById("totalMasuk").innerText =
+            formatRupiah(totalMasuk);
 
-    document.getElementById("totalMasuk").textContent =
-      rupiah(masuk);
+        document.getElementById("totalKeluar").innerText =
+            formatRupiah(totalKeluar);
 
-    document.getElementById("totalKeluar").textContent =
-      rupiah(keluar);
+        document.getElementById("saldo").innerText =
+            formatRupiah(totalMasuk - totalKeluar);
 
-    document.getElementById("saldo").textContent =
-      rupiah(masuk - keluar);
+        document.getElementById("status").innerHTML = "";
 
-    console.log("Dashboard berhasil");
+    }catch(error){
 
-  }catch(err){
+        console.error(error);
 
-    console.error("ERROR DASHBOARD:", err);
-
-    document.getElementById("status").innerHTML =
-      "❌ Dashboard gagal memuat data";
-
-  }
-
+        document.getElementById("status").innerHTML =
+            "❌ Dashboard gagal memuat data : " + error.message;
+    }
 }
 
 document.getElementById("tanggal").value =
@@ -241,47 +238,50 @@ new Date().toISOString().split("T")[0];
 document.getElementById("formKeuangan")
 .addEventListener("submit", async function(e){
 
-  e.preventDefault();
+    e.preventDefault();
 
-  const payload = {
-    tanggal : document.getElementById("tanggal").value,
-    jenis : document.getElementById("jenis").value,
-    kategori : document.getElementById("kategori").value,
-    deskripsi : document.getElementById("deskripsi").value,
-    nominal : document.getElementById("nominal").value
-  };
+    const payload = {
+        tanggal : document.getElementById("tanggal").value,
+        jenis : document.getElementById("jenis").value,
+        kategori : document.getElementById("kategori").value,
+        deskripsi : document.getElementById("deskripsi").value,
+        nominal : document.getElementById("nominal").value
+    };
 
-  try{
+    try{
 
-    await fetch(API_URL,{
-      method:"POST",
-      mode:"no-cors",
-      headers:{
-        "Content-Type":"text/plain"
-      },
-      body:JSON.stringify(payload)
-    });
+        await fetch(API_URL,{
+            method:"POST",
+            mode:"no-cors",
+            headers:{
+                "Content-Type":"text/plain"
+            },
+            body:JSON.stringify(payload)
+        });
 
-    document.getElementById("status").innerHTML =
-      "✅ Data berhasil disimpan";
+        document.getElementById("status").innerHTML =
+            "✅ Data berhasil disimpan";
 
-    document.getElementById("deskripsi").value = "";
-    document.getElementById("nominal").value = "";
+        document.getElementById("deskripsi").value = "";
+        document.getElementById("nominal").value = "";
 
-    setTimeout(loadDashboard,1500);
+        setTimeout(loadDashboard,2000);
 
-  }catch(err){
+    }catch(error){
 
-    console.error(err);
+        document.getElementById("status").innerHTML =
+            "❌ Gagal menyimpan data";
 
-    document.getElementById("status").innerHTML =
-      "❌ Gagal menyimpan data";
-
-  }
+        console.error(error);
+    }
 
 });
 
 loadDashboard();
+
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("./sw.js");
+}
 
 </script>
 
