@@ -11,113 +11,102 @@
 
 <style>
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
 body{
-    font-family:Arial,sans-serif;
-    background:#f0fdf4;
-    padding:15px;
+  font-family:Arial,sans-serif;
+  background:#f0fdf4;
+  padding:15px;
 }
 
 .card{
-    max-width:550px;
-    margin:auto;
-    background:#fff;
-    padding:20px;
-    border-radius:16px;
-    box-shadow:0 4px 12px rgba(0,0,0,.1);
+  max-width:600px;
+  margin:auto;
+  background:#fff;
+  padding:20px;
+  border-radius:16px;
+  box-shadow:0 4px 12px rgba(0,0,0,.1);
 }
 
 h1{
-    text-align:center;
-    color:#16a34a;
-    margin-bottom:8px;
+  text-align:center;
+  color:#16a34a;
+  margin-bottom:10px;
 }
 
 .subtitle{
-    text-align:center;
-    color:#666;
-    margin-bottom:20px;
+  text-align:center;
+  color:#666;
+  margin-bottom:20px;
 }
 
 .dashboard{
-    display:grid;
-    gap:10px;
-    margin-bottom:20px;
+  display:grid;
+  gap:10px;
+  margin-bottom:20px;
 }
 
 .box{
-    padding:15px;
-    border-radius:12px;
-    text-align:center;
-    color:#fff;
-}
-
-.box h3{
-    margin-bottom:5px;
-}
-
-.box p{
-    font-size:26px;
-    font-weight:bold;
+  padding:15px;
+  border-radius:12px;
+  color:#fff;
+  text-align:center;
 }
 
 .saldo{
-    background:#16a34a;
+  background:#16a34a;
 }
 
 .masuk{
-    background:#2563eb;
+  background:#2563eb;
 }
 
 .keluar{
-    background:#dc2626;
+  background:#dc2626;
+}
+
+.box p{
+  font-size:26px;
+  font-weight:bold;
 }
 
 label{
-    display:block;
-    margin-top:12px;
-    margin-bottom:5px;
-    font-weight:bold;
+  display:block;
+  margin-top:10px;
+  margin-bottom:5px;
+  font-weight:bold;
 }
 
-input,
-select{
-    width:100%;
-    padding:12px;
-    border:1px solid #ccc;
-    border-radius:8px;
-    font-size:16px;
+input,select{
+  width:100%;
+  padding:12px;
+  border:1px solid #ccc;
+  border-radius:8px;
 }
 
 button{
-    width:100%;
-    margin-top:20px;
-    padding:14px;
-    border:none;
-    border-radius:8px;
-    background:#16a34a;
-    color:#fff;
-    font-size:16px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-button:hover{
-    background:#15803d;
+  width:100%;
+  padding:14px;
+  margin-top:20px;
+  background:#16a34a;
+  color:white;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:16px;
 }
 
 #status{
-    margin-top:15px;
-    text-align:center;
-    font-weight:bold;
+  margin-top:15px;
+  text-align:center;
+  font-weight:bold;
 }
 </style>
-
 </head>
+
 <body>
 
 <div class="card">
@@ -131,18 +120,18 @@ Catat pemasukan dan pengeluaran harian
 <div class="dashboard">
 
 <div class="box saldo">
-    <h3>💰 Saldo</h3>
-    <p id="saldo">Rp 0</p>
+<h3>💰 Saldo</h3>
+<p id="saldo">Rp 0</p>
 </div>
 
 <div class="box masuk">
-    <h3>📈 Total Pemasukan</h3>
-    <p id="totalMasuk">Rp 0</p>
+<h3>📈 Total Pemasukan</h3>
+<p id="totalMasuk">Rp 0</p>
 </div>
 
 <div class="box keluar">
-    <h3>📉 Total Pengeluaran</h3>
-    <p id="totalKeluar">Rp 0</p>
+<h3>📉 Total Pengeluaran</h3>
+<p id="totalKeluar">Rp 0</p>
 </div>
 
 </div>
@@ -152,29 +141,29 @@ Catat pemasukan dan pengeluaran harian
 <label>Tanggal</label>
 <input type="date" id="tanggal" required>
 
-<label>Jenis Transaksi</label>
+<label>Jenis</label>
 <select id="jenis">
-    <option value="Masuk">Pemasukan</option>
-    <option value="Keluar">Pengeluaran</option>
+  <option value="Masuk">Pemasukan</option>
+  <option value="Keluar">Pengeluaran</option>
 </select>
 
 <label>Kategori</label>
 <select id="kategori">
-    <option value="Tagihan Rumah">Tagihan Rumah</option>
-    <option value="Kebutuhan Harian dan Bulanan">Kebutuhan Harian</option>
-    <option value="Cicilan Rumah Kiramland">Rumah Kiramland</option>
-    <option value="Keperluan Pribadi">Keperluan Pribadi</option>
-    <option value="Kesehatan/Medical">Medical</option>
-    <option value="Keperluan Bayi">Baby Shop</option>
+  <option value="Tagihan Rumah">Tagihan Rumah</option>
+  <option value="Kebutuhan Harian dan Bulanan">Kebutuhan Harian</option>
+  <option value="Cicilan Rumah Kiramland">Rumah Kiramland</option>
+  <option value="Keperluan Pribadi">Keperluan Pribadi</option>
+  <option value="Kesehatan/Medical">Medical</option>
+  <option value="Keperluan Bayi">Baby Shop</option>
 </select>
 
 <label>Deskripsi</label>
 <input type="text" id="deskripsi">
 
-<label>Nominal (Rp)</label>
+<label>Nominal</label>
 <input type="number" id="nominal" required>
 
-<button type="submit" id="btnSimpan">
+<button type="submit">
 Simpan Transaksi
 </button>
 
@@ -186,57 +175,63 @@ Simpan Transaksi
 
 <script>
 
-// GANTI DENGAN URL APPS SCRIPT TERBARU
-const API_URL = "https://script.google.com/macros/s/AKfycbwQY2lV0EpSWmvjAtIX3FBpRjLDuqwHer6meXg_0pLyo_SJIt4aOXC1sIT80uMvG23X/exec";
+// GANTI DENGAN URL DEPLOYMENT TERBARU
+const API_URL = "PASTE_URL_APPS_SCRIPT_TERBARU_DISINI";
 
-function rupiah(n){
-    return "Rp " + Number(n).toLocaleString("id-ID");
+function rupiah(nilai){
+  return "Rp " + Number(nilai).toLocaleString("id-ID");
 }
 
 async function loadDashboard(){
 
-    try{
+  try{
 
-        const response = await fetch(API_URL);
+    console.log("LOAD DASHBOARD");
 
-        const data = await response.json();
+    const response = await fetch(API_URL);
 
-        let totalMasuk = 0;
-        let totalKeluar = 0;
+    console.log("STATUS:", response.status);
 
-        data.forEach(item => {
+    const data = await response.json();
 
-            const nominal = Number(item.nominal) || 0;
+    console.log("DATA:", data);
 
-            if(item.jenis === "Masuk"){
-                totalMasuk += nominal;
-            }
+    let masuk = 0;
+    let keluar = 0;
 
-            if(item.jenis === "Keluar"){
-                totalKeluar += nominal;
-            }
+    data.forEach(item => {
 
-        });
+      const nominal = Number(item.nominal) || 0;
 
-        document.getElementById("totalMasuk").textContent =
-            rupiah(totalMasuk);
+      if(item.jenis === "Masuk"){
+        masuk += nominal;
+      }
 
-        document.getElementById("totalKeluar").textContent =
-            rupiah(totalKeluar);
+      if(item.jenis === "Keluar"){
+        keluar += nominal;
+      }
 
-        document.getElementById("saldo").textContent =
-            rupiah(totalMasuk - totalKeluar);
+    });
 
-        console.log("Dashboard berhasil dimuat");
+    document.getElementById("totalMasuk").textContent =
+      rupiah(masuk);
 
-    }catch(err){
+    document.getElementById("totalKeluar").textContent =
+      rupiah(keluar);
 
-        console.error(err);
+    document.getElementById("saldo").textContent =
+      rupiah(masuk - keluar);
 
-        document.getElementById("status").innerHTML =
-        "❌ Dashboard gagal memuat data";
+    console.log("Dashboard berhasil");
 
-    }
+  }catch(err){
+
+    console.error("ERROR DASHBOARD:", err);
+
+    document.getElementById("status").innerHTML =
+      "❌ Dashboard gagal memuat data";
+
+  }
 
 }
 
@@ -246,49 +241,47 @@ new Date().toISOString().split("T")[0];
 document.getElementById("formKeuangan")
 .addEventListener("submit", async function(e){
 
-    e.preventDefault();
+  e.preventDefault();
 
-    const data = {
-        tanggal: document.getElementById("tanggal").value,
-        jenis: document.getElementById("jenis").value,
-        kategori: document.getElementById("kategori").value,
-        deskripsi: document.getElementById("deskripsi").value,
-        nominal: document.getElementById("nominal").value
-    };
+  const payload = {
+    tanggal : document.getElementById("tanggal").value,
+    jenis : document.getElementById("jenis").value,
+    kategori : document.getElementById("kategori").value,
+    deskripsi : document.getElementById("deskripsi").value,
+    nominal : document.getElementById("nominal").value
+  };
 
-    try{
+  try{
 
-        await fetch(API_URL,{
-            method:"POST",
-            mode:"no-cors",
-            headers:{
-                "Content-Type":"text/plain"
-            },
-            body:JSON.stringify(data)
-        });
+    await fetch(API_URL,{
+      method:"POST",
+      mode:"no-cors",
+      headers:{
+        "Content-Type":"text/plain"
+      },
+      body:JSON.stringify(payload)
+    });
 
-        document.getElementById("status").innerHTML =
-        "✅ Data berhasil disimpan";
+    document.getElementById("status").innerHTML =
+      "✅ Data berhasil disimpan";
 
-        document.getElementById("deskripsi").value="";
-        document.getElementById("nominal").value="";
+    document.getElementById("deskripsi").value = "";
+    document.getElementById("nominal").value = "";
 
-        setTimeout(loadDashboard,1500);
+    setTimeout(loadDashboard,1500);
 
-    }catch(err){
+  }catch(err){
 
-        document.getElementById("status").innerHTML =
-        "❌ Gagal menyimpan data";
+    console.error(err);
 
-    }
+    document.getElementById("status").innerHTML =
+      "❌ Gagal menyimpan data";
+
+  }
 
 });
 
 loadDashboard();
-
-if("serviceWorker" in navigator){
-    navigator.serviceWorker.register("./sw.js");
-}
 
 </script>
 
